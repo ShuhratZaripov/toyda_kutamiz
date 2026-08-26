@@ -96,7 +96,7 @@ export function InviteGenerator() {
         <form className="generator-form" onSubmit={(event) => event.preventDefault()}>
           <fieldset className="mode-fieldset">
             <legend>Tadbir</legend>
-            <div className="mode-options">
+            <div className="mode-options event-options">
               <label>
                 <input
                   data-testid="event-wedding"
@@ -118,6 +118,17 @@ export function InviteGenerator() {
                   onChange={() => updateEvent("qizlar-bazmi")}
                 />
                 <span>Qizlar bazmi - 13-sentabr</span>
+              </label>
+              <label>
+                <input
+                  data-testid="event-both"
+                  type="radio"
+                  name="invitation-event"
+                  value="both"
+                  checked={invitationEvent === "both"}
+                  onChange={() => updateEvent("both")}
+                />
+                <span>Ikkala tadbir - 13 va 14-sentabr</span>
               </label>
             </div>
           </fieldset>

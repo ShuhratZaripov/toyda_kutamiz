@@ -76,6 +76,13 @@ export type ResolvedInvitationContent = WeddingLocaleContent & {
   singleName: boolean;
 };
 
+export type InvitationScheduleItem = {
+  event: Exclude<InvitationEvent, "both">;
+  label: string;
+  displayDate: string;
+  dateTime: string;
+};
+
 const uz = {
   htmlLang: "uz-Latn",
   couple: {
@@ -271,12 +278,15 @@ const qizlarBazmi = {
     browserTitle: "Zulayho | Qizlar bazmi",
     displayDate: "13-sentabr, 2026-yil",
     detailsDisplayDate: "2026-yil 13-sentabr",
-    openingMessage: "Bu nafis oqshom siz bilan yanada go‘zal bo‘ladi.",
+    openingMessage:
+      "Biz uchun alohida ahamiyatga ega bo‘lgan bu nafis oqshom siz bilan yanada go‘zal bo‘ladi.",
     openingLabel: "Qizlar bazmi",
     heroLabel: "Qizlar bazmi",
     invitationSentences: {
-      singular: "sizni qizlar bazmiga taklif qilamiz.",
-      plural: "sizlarni qizlar bazmiga taklif qilamiz.",
+      singular:
+        "sizni qizlar bazmi munosabati bilan bo‘lib o‘tadigan nafis oqshomimizga taklif qilamiz.",
+      plural:
+        "sizlarni qizlar bazmi munosabati bilan bo‘lib o‘tadigan nafis oqshomimizga taklif qilamiz.",
     },
     detailsTitle: "Qizlar bazmi tafsilotlari",
     closingMessage: "Tashrifingiz biz uchun katta quvonch bo‘ladi",
@@ -291,12 +301,15 @@ const qizlarBazmi = {
     browserTitle: "Зулайхо | Қизлар базми",
     displayDate: "13-сентябрь, 2026-йил",
     detailsDisplayDate: "2026-йил 13-сентябрь",
-    openingMessage: "Бу нафис оқшом сиз билан янада гўзал бўлади.",
+    openingMessage:
+      "Биз учун алоҳида аҳамиятга эга бўлган бу нафис оқшом сиз билан янада гўзал бўлади.",
     openingLabel: "Қизлар базми",
     heroLabel: "Қизлар базми",
     invitationSentences: {
-      singular: "сизни қизлар базмига таклиф қиламиз.",
-      plural: "сизларни қизлар базмига таклиф қиламиз.",
+      singular:
+        "сизни қизлар базми муносабати билан бўлиб ўтадиган нафис оқшомимизга таклиф қиламиз.",
+      plural:
+        "сизларни қизлар базми муносабати билан бўлиб ўтадиган нафис оқшомимизга таклиф қиламиз.",
     },
     detailsTitle: "Қизлар базми тафсилотлари",
     closingMessage: "Ташрифингиз биз учун катта қувонч бўлади",
@@ -311,12 +324,15 @@ const qizlarBazmi = {
     browserTitle: "Зулайхо | Кызлар базми",
     displayDate: "13 сентября 2026 года",
     detailsDisplayDate: "13 сентября 2026 года",
-    openingMessage: "Этот особенный вечер станет ещё прекраснее вместе с вами.",
+    openingMessage:
+      "Этот особенный и дорогой для нас вечер станет ещё прекраснее вместе с вами.",
     openingLabel: "Кызлар базми",
     heroLabel: "Кызлар базми",
     invitationSentences: {
-      singular: "приглашаем Вас на кызлар базми.",
-      plural: "приглашаем вас на кызлар базми.",
+      singular:
+        "приглашаем Вас на торжественный вечер по случаю кызлар базми.",
+      plural:
+        "приглашаем вас на торжественный вечер по случаю кызлар базми.",
     },
     detailsTitle: "Детали кызлар базми",
     closingMessage: "Ваше присутствие станет для нас большой радостью",
@@ -331,15 +347,93 @@ const qizlarBazmi = {
     browserTitle: "Zulayho | Qizlar bazmi",
     displayDate: "September 13, 2026",
     detailsDisplayDate: "September 13, 2026",
-    openingMessage: "This special evening will be even more beautiful with you.",
+    openingMessage:
+      "This special evening means so much to us, and it will be even more beautiful with you.",
     openingLabel: "Qizlar bazmi",
     heroLabel: "Qizlar bazmi",
     invitationSentences: {
-      singular: "We invite you to join us for qizlar bazmi.",
-      plural: "We invite you to join us for qizlar bazmi.",
+      singular:
+        "we invite you to join us for a special evening celebrating qizlar bazmi.",
+      plural:
+        "we invite you to join us for a special evening celebrating qizlar bazmi.",
     },
     detailsTitle: "Qizlar bazmi details",
     closingMessage: "Your presence will bring us great joy",
+  },
+} satisfies Record<Language, InvitationEventContent>;
+
+const bothEvents = {
+  uz: {
+    couple: uz.couple,
+    browserTitle: "Usmon va Zulayho | Qizlar bazmi va nikoh to‘yi",
+    displayDate: "13 va 14-sentabr, 2026-yil",
+    detailsDisplayDate: "2026-yil 13 va 14-sentabr",
+    openingMessage:
+      "Biz uchun aziz bo‘lgan ikki quvonchli kunimiz siz bilan yanada go‘zal bo‘ladi.",
+    openingLabel: "Qizlar bazmi va nikoh to‘yimiz",
+    heroLabel: "Qizlar bazmi va nikoh to‘yimiz",
+    invitationSentences: {
+      singular:
+        "sizni qizlar bazmi va nikoh to‘yimiz munosabati bilan bo‘lib o‘tadigan tantanali tadbirlarimizga taklif qilamiz.",
+      plural:
+        "sizlarni qizlar bazmi va nikoh to‘yimiz munosabati bilan bo‘lib o‘tadigan tantanali tadbirlarimizga taklif qilamiz.",
+    },
+    detailsTitle: "Qizlar bazmi va nikoh to‘yi tafsilotlari",
+    closingMessage: uz.closingMessage,
+  },
+  "uz-cyrl": {
+    couple: uzCyrl.couple,
+    browserTitle: "Усмон ва Зулайхо | Қизлар базми ва никоҳ тўйи",
+    displayDate: "13 ва 14-сентябрь, 2026-йил",
+    detailsDisplayDate: "2026-йил 13 ва 14-сентябрь",
+    openingMessage:
+      "Биз учун азиз бўлган икки қувончли кунимиз сиз билан янада гўзал бўлади.",
+    openingLabel: "Қизлар базми ва никоҳ тўйимиз",
+    heroLabel: "Қизлар базми ва никоҳ тўйимиз",
+    invitationSentences: {
+      singular:
+        "сизни қизлар базми ва никоҳ тўйимиз муносабати билан бўлиб ўтадиган тантанали тадбирларимизга таклиф қиламиз.",
+      plural:
+        "сизларни қизлар базми ва никоҳ тўйимиз муносабати билан бўлиб ўтадиган тантанали тадбирларимизга таклиф қиламиз.",
+    },
+    detailsTitle: "Қизлар базми ва никоҳ тўйи тафсилотлари",
+    closingMessage: uzCyrl.closingMessage,
+  },
+  ru: {
+    couple: ru.couple,
+    browserTitle: "Усмон и Зулайхо | Кызлар базми и свадьба",
+    displayDate: "13 и 14 сентября 2026 года",
+    detailsDisplayDate: "13 и 14 сентября 2026 года",
+    openingMessage:
+      "Два этих дорогих и радостных для нас дня станут ещё прекраснее вместе с вами.",
+    openingLabel: "Кызлар базми и наша свадьба",
+    heroLabel: "Кызлар базми и наша свадьба",
+    invitationSentences: {
+      singular:
+        "приглашаем Вас на торжественные вечера по случаю кызлар базми и нашей свадьбы.",
+      plural:
+        "приглашаем вас на торжественные вечера по случаю кызлар базми и нашей свадьбы.",
+    },
+    detailsTitle: "Детали кызлар базми и свадьбы",
+    closingMessage: ru.closingMessage,
+  },
+  en: {
+    couple: en.couple,
+    browserTitle: "Usmon and Zulayho | Qizlar bazmi and wedding",
+    displayDate: "September 13 and 14, 2026",
+    detailsDisplayDate: "September 13 and 14, 2026",
+    openingMessage:
+      "These two joyful days mean so much to us, and they will be even more beautiful with you.",
+    openingLabel: "Qizlar bazmi and our wedding",
+    heroLabel: "Qizlar bazmi and our wedding",
+    invitationSentences: {
+      singular:
+        "we invite you to join us for two celebratory evenings marking qizlar bazmi and our wedding.",
+      plural:
+        "we invite you to join us for two celebratory evenings marking qizlar bazmi and our wedding.",
+    },
+    detailsTitle: "Qizlar bazmi and wedding details",
+    closingMessage: en.closingMessage,
   },
 } satisfies Record<Language, InvitationEventContent>;
 
@@ -365,7 +459,7 @@ export const wedding = {
 
 export const weddingDateTime = `${wedding.date}T${wedding.startTime}:00+05:00`;
 
-export const invitationDateTimes: Record<InvitationEvent, string> = {
+export const invitationDateTimes: Record<Exclude<InvitationEvent, "both">, string> = {
   wedding: weddingDateTime,
   "qizlar-bazmi": `${wedding.qizlarBazmiDate}T${wedding.startTime}:00+05:00`,
 };
@@ -376,7 +470,34 @@ export function getInvitationContent(
 ): ResolvedInvitationContent {
   const content = wedding.localized[language];
 
-  return invitationEvent === "qizlar-bazmi"
-    ? { ...content, ...qizlarBazmi[language], singleName: true }
-    : { ...content, singleName: false };
+  if (invitationEvent === "qizlar-bazmi") {
+    return { ...content, ...qizlarBazmi[language], singleName: true };
+  }
+
+  if (invitationEvent === "both") {
+    return { ...content, ...bothEvents[language], singleName: false };
+  }
+
+  return { ...content, singleName: false };
+}
+
+export function getInvitationSchedule(
+  language: Language,
+  invitationEvent: InvitationEvent,
+): InvitationScheduleItem[] {
+  const events: InvitationScheduleItem["event"][] =
+    invitationEvent === "both"
+      ? ["qizlar-bazmi", "wedding"]
+      : [invitationEvent];
+
+  return events.map((event) => {
+    const content = getInvitationContent(language, event);
+
+    return {
+      event,
+      label: content.heroLabel,
+      displayDate: content.detailsDisplayDate,
+      dateTime: invitationDateTimes[event],
+    };
+  });
 }

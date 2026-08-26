@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import {
   getInvitationContent,
-  invitationDateTimes,
+  getInvitationSchedule,
   wedding,
   type WeddingLocaleContent,
 } from "@/config/wedding";
@@ -45,7 +45,7 @@ export function InvitationExperience() {
       ? personalization.value.invitationEvent
       : "wedding";
   const content = getInvitationContent(language, invitationEvent);
-  const invitationDateTime = invitationDateTimes[invitationEvent];
+  const invitationSchedule = getInvitationSchedule(language, invitationEvent);
 
   useEffect(() => {
     document.documentElement.lang = content.htmlLang;
@@ -99,7 +99,11 @@ export function InvitationExperience() {
           </h1>
           <div className="date-lockup hero-item hero-date">
             <span aria-hidden="true" />
-            <time dateTime={invitationDateTime}>{content.displayDate}</time>
+            {invitationEvent === "both" ? (
+              <b className="combined-date">{content.displayDate}</b>
+            ) : (
+              <time dateTime={invitationSchedule[0].dateTime}>{content.displayDate}</time>
+            )}
             <span aria-hidden="true" />
           </div>
           <div className="scroll-cue hero-item hero-cue" aria-hidden="true">
@@ -159,18 +163,25 @@ export function InvitationExperience() {
             <p className="section-number section-number-light" aria-hidden="true">02</p>
             <p className="eyebrow eyebrow-light">{content.detailsLabel}</p>
             <h2 id="details-heading" className="visually-hidden">{content.detailsTitle}</h2>
-            <div className="details-grid">
-              <article
-                className="detail-block"
-                data-reveal
-                data-reveal-milestone="details"
-              >
-                <p className="detail-kicker">{content.dateTimeLabel}</p>
-                <h3>
-                  <time dateTime={invitationDateTime}>{content.detailsDisplayDate}</time>
-                </h3>
-                <p className="detail-value">{content.startTimeLabel} {wedding.startTime}</p>
-              </article>
+            <div className={`details-grid${invitationEvent === "both" ? " details-grid-both" : ""}`}>
+              {invitationSchedule.map((event, index) => (
+                <article
+                  key={event.event}
+                  className="detail-block"
+                  data-testid={`event-detail-${event.event}`}
+                  data-reveal
+                  data-reveal-delay={index > 0 ? "1" : undefined}
+                  data-reveal-milestone={index === 0 ? "details" : undefined}
+                >
+                  <p className="detail-kicker">
+                    {invitationEvent === "both" ? event.label : content.dateTimeLabel}
+                  </p>
+                  <h3>
+                    <time dateTime={event.dateTime}>{event.displayDate}</time>
+                  </h3>
+                  <p className="detail-value">{content.startTimeLabel} {wedding.startTime}</p>
+                </article>
+              ))}
               <article className="detail-block venue-block" data-reveal data-reveal-delay="1">
                 <p className="detail-kicker">{content.venueLabel}</p>
                 <h3>{content.venueName}</h3>

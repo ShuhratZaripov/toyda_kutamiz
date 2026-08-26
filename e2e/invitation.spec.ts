@@ -75,7 +75,7 @@ const compatibilityTokens = [
 
 type AddressForm = keyof typeof guests;
 type Language = "uz" | "uz-cyrl" | "ru" | "en";
-type InvitationEvent = "wedding" | "qizlar-bazmi";
+type InvitationEvent = "wedding" | "qizlar-bazmi" | "both";
 
 type MotionState = {
   opacity: number;
@@ -395,6 +395,9 @@ test("generator creates a qizlar bazmi invitation for Zulayho alone", async ({
   await expect(gate).toContainText("Zulayho");
   await expect(gate).not.toContainText("Usmon");
   await expect(gate).toContainText("13-sentabr, 2026-yil");
+  await expect(gate).toContainText(
+    "Biz uchun alohida ahamiyatga ega bo‘lgan bu nafis oqshom siz bilan yanada go‘zal bo‘ladi.",
+  );
   await gate.getByRole("button", { name: "Taklifnomani ochish" }).click();
   await expect(gate).toBeHidden();
 
@@ -407,29 +410,177 @@ test("generator creates a qizlar bazmi invitation for Zulayho alone", async ({
   );
   await expect(page.getByTestId("recipient-name")).toHaveText(qizlarGuests);
   await expect(page.getByTestId("invitation-copy")).toContainText(
-    "sizlarni qizlar bazmiga taklif qilamiz.",
+    "sizlarni qizlar bazmi munosabati bilan bo‘lib o‘tadigan nafis oqshomimizga taklif qilamiz.",
   );
   await expect(page.locator(".closing")).toContainText(
     "Tashrifingiz biz uchun katta quvonch bo‘ladi",
   );
 
-  const localizedClosings = [
-    ["uz-cyrl", "Қадрли дугоналар", "Ташрифингиз биз учун катта қувонч бўлади"],
-    ["ru", "Дорогие подруги", "Ваше присутствие станет для нас большой радостью"],
-    ["en", "Dear friends", "Your presence will bring us great joy"],
+  const localizedQizlarInvitations = [
+    {
+      language: "uz-cyrl",
+      guestName: "Қадрли дугоналар",
+      sentence:
+        "сизларни қизлар базми муносабати билан бўлиб ўтадиган нафис оқшомимизга таклиф қиламиз.",
+      openingMessage:
+        "Биз учун алоҳида аҳамиятга эга бўлган бу нафис оқшом сиз билан янада гўзал бўлади.",
+      closingMessage: "Ташрифингиз биз учун катта қувонч бўлади",
+    },
+    {
+      language: "ru",
+      guestName: "Дорогие подруги",
+      sentence:
+        "приглашаем вас на торжественный вечер по случаю кызлар базми.",
+      openingMessage:
+        "Этот особенный и дорогой для нас вечер станет ещё прекраснее вместе с вами.",
+      closingMessage: "Ваше присутствие станет для нас большой радостью",
+    },
+    {
+      language: "en",
+      guestName: "Dear friends",
+      sentence:
+        "we invite you to join us for a special evening celebrating qizlar bazmi.",
+      openingMessage:
+        "This special evening means so much to us, and it will be even more beautiful with you.",
+      closingMessage: "Your presence will bring us great joy",
+    },
   ] as const;
 
-  for (const [language, guestName, closingMessage] of localizedClosings) {
+  for (const localized of localizedQizlarInvitations) {
     const localizedUrl = await generateInvitation(
       page,
       "plural",
-      guestName,
-      language,
+      localized.guestName,
+      localized.language,
       "qizlar-bazmi",
     );
     await page.goto(localizedUrl);
-    await page.getByTestId("opening-gate").getByRole("button").click();
-    await expect(page.locator(".closing")).toContainText(closingMessage);
+    const localizedGate = page.getByTestId("opening-gate");
+    await expect(localizedGate).toContainText(localized.openingMessage);
+    await localizedGate.getByRole("button").click();
+    await expect(page.getByTestId("invitation-copy")).toContainText(
+      localized.sentence,
+    );
+    await expect(page.locator(".closing")).toContainText(
+      localized.closingMessage,
+    );
+  }
+});
+
+test("generator creates one invitation for both celebrations", async ({ page }) => {
+  const bothGuests = "Ikki kunlik aziz mehmonlar";
+  const url = await generateInvitation(
+    page,
+    "plural",
+    bothGuests,
+    "uz",
+    "both",
+  );
+  expect([
+    ...Buffer.from(new URL(url).hash.slice(1), "base64url").subarray(0, 5),
+  ]).toEqual([0xf1, 3, 33, 0, 0]);
+
+  await openInvitation(page, url);
+  await expect(page.getByTestId("opening-gate")).toContainText(
+    "Biz uchun aziz bo‘lgan ikki quvonchli kunimiz siz bilan yanada go‘zal bo‘ladi.",
+  );
+  await expect(page).toHaveTitle(
+    "Usmon va Zulayho | Qizlar bazmi va nikoh to‘yi",
+  );
+  await expect(page.getByTestId("hero")).toContainText(
+    "Qizlar bazmi va nikoh to‘yimiz",
+  );
+  await expect(page.getByTestId("hero")).toContainText(
+    "13 va 14-sentabr, 2026-yil",
+  );
+  await expect(page.getByTestId("recipient-name")).toHaveText(bothGuests);
+  await expect(page.getByTestId("invitation-copy")).toContainText(
+    "sizlarni qizlar bazmi va nikoh to‘yimiz munosabati bilan bo‘lib o‘tadigan tantanali tadbirlarimizga taklif qilamiz.",
+  );
+
+  const qizlarDetail = page.getByTestId("event-detail-qizlar-bazmi");
+  const weddingDetail = page.getByTestId("event-detail-wedding");
+  await expect(qizlarDetail.locator(".detail-kicker")).toHaveText("Qizlar bazmi");
+  await expect(qizlarDetail.locator("time")).toHaveText(
+    "2026-yil 13-sentabr",
+  );
+  await expect(weddingDetail.locator(".detail-kicker")).toHaveText(
+    "Nikoh to‘yimiz",
+  );
+  await expect(weddingDetail.locator("time")).toHaveText(
+    "2026-yil 14-sentabr",
+  );
+  await expect(page.locator(".details-grid .detail-block")).toHaveCount(3);
+  await expect(page.locator(".venue-block")).toContainText(
+    "Oq qasr to'yxonasi",
+  );
+  const combinedLayout = await page.locator(".details-grid").evaluate((grid) => ({
+    columns: getComputedStyle(grid).gridTemplateColumns.split(" ").length,
+    viewportWidth: document.documentElement.clientWidth,
+    overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  }));
+  expect(combinedLayout.columns).toBe(
+    combinedLayout.viewportWidth >= 768 ? 3 : 1,
+  );
+  expect(combinedLayout.overflow).toBeLessThanOrEqual(0);
+
+  const localizedCombinedInvitations = [
+    {
+      language: "uz-cyrl",
+      guestName: "Икки кунлик азиз меҳмонлар",
+      buttonName: "Таклифномани очиш",
+      sentence:
+        "сизларни қизлар базми ва никоҳ тўйимиз муносабати билан бўлиб ўтадиган тантанали тадбирларимизга таклиф қиламиз.",
+      openingMessage:
+        "Биз учун азиз бўлган икки қувончли кунимиз сиз билан янада гўзал бўлади.",
+      qizlarLabel: "Қизлар базми",
+      weddingLabel: "Никоҳ тўйимиз",
+    },
+    {
+      language: "ru",
+      guestName: "Дорогие гости двух праздников",
+      buttonName: "Открыть приглашение",
+      sentence:
+        "приглашаем вас на торжественные вечера по случаю кызлар базми и нашей свадьбы.",
+      openingMessage:
+        "Два этих дорогих и радостных для нас дня станут ещё прекраснее вместе с вами.",
+      qizlarLabel: "Кызлар базми",
+      weddingLabel: "Наша свадьба",
+    },
+    {
+      language: "en",
+      guestName: "Guests of both celebrations",
+      buttonName: "Open the invitation",
+      sentence:
+        "we invite you to join us for two celebratory evenings marking qizlar bazmi and our wedding.",
+      openingMessage:
+        "These two joyful days mean so much to us, and they will be even more beautiful with you.",
+      qizlarLabel: "Qizlar bazmi",
+      weddingLabel: "Our wedding",
+    },
+  ] as const;
+
+  for (const localized of localizedCombinedInvitations) {
+    const localizedUrl = await generateInvitation(
+      page,
+      "plural",
+      localized.guestName,
+      localized.language,
+      "both",
+    );
+    await openInvitation(page, localizedUrl, localized.buttonName);
+    await expect(page.getByTestId("opening-gate")).toContainText(
+      localized.openingMessage,
+    );
+    await expect(page.getByTestId("invitation-copy")).toContainText(
+      localized.sentence,
+    );
+    await expect(
+      page.getByTestId("event-detail-qizlar-bazmi").locator(".detail-kicker"),
+    ).toHaveText(localized.qizlarLabel);
+    await expect(
+      page.getByTestId("event-detail-wedding").locator(".detail-kicker"),
+    ).toHaveText(localized.weddingLabel);
   }
 });
 
@@ -706,6 +857,7 @@ test("rejects malformed, unsafe, oversized, and obsolete-format fragments", asyn
     encodeToken(0, "Sinov\nMehmoni"),
     encodeToken(0, "Sinov\u202eMehmoni"),
     encodeToken(0, "N".repeat(2_000)),
+    encodeToken(0b11 << 4, "Invalid Event"),
     "AExlZ2FjeSBCaXI",
     "AQLQodC10LzRjNGPINCi0LXRgdGC0L7QstGL0YU",
     "8AMAAABJbnZhbGlk",

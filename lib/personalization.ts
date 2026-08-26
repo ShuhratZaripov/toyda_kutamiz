@@ -1,6 +1,6 @@
 export const ADDRESS_FORMS = ["singular", "plural"] as const;
 export const LANGUAGES = ["uz", "uz-cyrl", "ru", "en"] as const;
-export const INVITATION_EVENTS = ["wedding", "qizlar-bazmi"] as const;
+export const INVITATION_EVENTS = ["wedding", "qizlar-bazmi", "both"] as const;
 
 export type AddressForm = (typeof ADDRESS_FORMS)[number];
 export type Language = (typeof LANGUAGES)[number];
@@ -30,6 +30,7 @@ const MODE_BY_LANGUAGE: Readonly<Record<Language, number>> = {
 const MODE_BY_INVITATION_EVENT: Readonly<Record<InvitationEvent, number>> = {
   wedding: 0,
   "qizlar-bazmi": 1,
+  both: 2,
 };
 
 const FORMAT_FAMILY = 0xf0;
@@ -43,6 +44,7 @@ const MAX_HEADER_LENGTH = 32;
 const LANGUAGE_SHIFT = 1;
 const LANGUAGE_MASK = 0b111;
 const INVITATION_EVENT_SHIFT = 4;
+const INVITATION_EVENT_MASK = 0b11;
 const BASE64URL_PATTERN = /^[A-Za-z0-9_-]+$/;
 const UNSAFE_NAME_CHARACTERS =
   /[\u0000-\u001f\u007f-\u009f\u061c\u200e\u200f\u2028-\u202e\u2066-\u2069]/u;
@@ -65,7 +67,7 @@ function isLanguage(value: unknown): value is Language {
 }
 
 function isInvitationEvent(value: unknown): value is InvitationEvent {
-  return value === "wedding" || value === "qizlar-bazmi";
+  return value === "wedding" || value === "qizlar-bazmi" || value === "both";
 }
 
 function isValidName(value: string): boolean {
@@ -203,7 +205,13 @@ export function decodePersonalization(value: unknown): Personalization | null {
     (coreOptions >> LANGUAGE_SHIFT) & LANGUAGE_MASK;
   const language = LANGUAGES[languageCode] ?? "uz";
   const invitationEvent =
-    INVITATION_EVENTS[(coreOptions >> INVITATION_EVENT_SHIFT) & 1];
+    INVITATION_EVENTS[
+      (coreOptions >> INVITATION_EVENT_SHIFT) & INVITATION_EVENT_MASK
+    ];
+
+  if (!invitationEvent) {
+    return null;
+  }
 
   try {
     const displayName = utf8Decoder.decode(payload.subarray(nameOffset)).trim();
