@@ -279,7 +279,7 @@ const qizlarBazmi = {
       plural: "sizlarni qizlar bazmiga taklif qilamiz.",
     },
     detailsTitle: "Qizlar bazmi tafsilotlari",
-    closingMessage: "Tashrifingiz men uchun katta quvonch bo‘ladi",
+    closingMessage: "Tashrifingiz biz uchun katta quvonch bo‘ladi",
   },
   "uz-cyrl": {
     couple: {
@@ -299,7 +299,7 @@ const qizlarBazmi = {
       plural: "сизларни қизлар базмига таклиф қиламиз.",
     },
     detailsTitle: "Қизлар базми тафсилотлари",
-    closingMessage: "Ташрифингиз мен учун катта қувонч бўлади",
+    closingMessage: "Ташрифингиз биз учун катта қувонч бўлади",
   },
   ru: {
     couple: {
@@ -319,7 +319,7 @@ const qizlarBazmi = {
       plural: "приглашаем вас на кызлар базми.",
     },
     detailsTitle: "Детали кызлар базми",
-    closingMessage: "Ваше присутствие станет для меня большой радостью",
+    closingMessage: "Ваше присутствие станет для нас большой радостью",
   },
   en: {
     couple: {
@@ -339,7 +339,7 @@ const qizlarBazmi = {
       plural: "We invite you to join us for qizlar bazmi.",
     },
     detailsTitle: "Qizlar bazmi details",
-    closingMessage: "Your presence will bring me great joy",
+    closingMessage: "Your presence will bring us great joy",
   },
 } satisfies Record<Language, InvitationEventContent>;
 

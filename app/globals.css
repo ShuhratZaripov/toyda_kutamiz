@@ -1428,9 +1428,10 @@ a.generated-url:active {
   overscroll-behavior: none;
   touch-action: pinch-zoom;
   background:
-    radial-gradient(circle at 52% 42%, rgba(176, 143, 93, 0.13), transparent 36%),
-    linear-gradient(145deg, #24251f 0%, #1d1f1b 62%, #28231e 100%);
-  color: #f7f0e5;
+    radial-gradient(circle at 52% 42%, rgba(255, 253, 247, 0.94), transparent 39%),
+    linear-gradient(145deg, #fbf8f1 0%, #f4efe4 62%, #f8f4ec 100%);
+  background-color: #f7f2e8;
+  color: #292d25;
 }
 
 html.gate-active {
@@ -1449,24 +1450,24 @@ html.gate-active body {
 }
 
 .opening-gate::backdrop {
-  background: #1d1f1b;
+  background: #f7f2e8;
 }
 
 .gate-frame {
   inset: 0.8rem;
-  border-color: rgba(213, 189, 151, 0.3);
+  border-color: rgba(128, 102, 67, 0.38);
 }
 
 .gate-frame::before,
 .gate-frame::after {
-  border-color: #c7a775;
+  border-color: #9a7d54;
 }
 
 .gate-light {
   background:
-    radial-gradient(circle at 50% 42%, rgba(255, 239, 211, 0.14), transparent 31%),
-    radial-gradient(circle at 7% 88%, rgba(137, 151, 110, 0.14), transparent 35%),
-    radial-gradient(circle at 93% 12%, rgba(179, 139, 83, 0.13), transparent 30%);
+    radial-gradient(circle at 50% 42%, rgba(255, 255, 251, 0.9), transparent 35%),
+    radial-gradient(circle at 7% 88%, rgba(132, 149, 111, 0.12), transparent 36%),
+    radial-gradient(circle at 93% 12%, rgba(179, 139, 83, 0.1), transparent 31%);
   animation: night-light-drift 12s ease-in-out infinite alternate;
 }
 
@@ -1480,53 +1481,53 @@ html.gate-active body {
 }
 
 .gate-label {
-  color: #d5bd97;
+  color: #765f3e;
   letter-spacing: 0.32em;
 }
 
 .gate-names {
-  color: #fff8ec;
+  color: #292d25;
   font-size: clamp(3.15rem, 15.5vw, 5.25rem);
   line-height: 0.86;
-  text-shadow: 0 0.15rem 1.5rem rgba(0, 0, 0, 0.18);
+  text-shadow: 0 0.15rem 1.5rem rgba(255, 252, 244, 0.58);
 }
 
 .gate-names i {
-  color: #d5bd97;
+  color: #806643;
 }
 
 .gate-message {
   max-width: 27rem;
-  color: #d0c6b8;
+  color: #52584d;
 }
 
 .gate-button {
-  border-color: #f3eadc;
-  background: #f3eadc;
-  color: #22231f;
-  box-shadow: 0 0.9rem 2.4rem rgba(0, 0, 0, 0.18);
+  border-color: #59634f;
+  background: #59634f;
+  color: #fffaf0;
+  box-shadow: 0 0.9rem 2.4rem rgba(65, 72, 57, 0.14);
 }
 
 .gate-button b {
-  color: #806643;
+  color: #ead8ba;
 }
 
 .gate-button:hover {
-  border-color: #d5bd97;
-  background: #d5bd97;
-  color: #1d1f1b;
+  border-color: #59634f;
+  background: #f7f2e8;
+  color: #384033;
 }
 
 .gate-button:focus-visible {
-  outline-color: #f6dfb9;
+  outline-color: #765f3e;
 }
 
 .gate-date {
-  color: #aaa195;
+  color: #52584d;
 }
 
 .gate-botanical {
-  --gate-plant-opacity: 0.62;
+  --gate-plant-opacity: 0.78;
   z-index: 1;
   width: clamp(15rem, 68vw, 34rem);
   height: auto;
@@ -1539,8 +1540,8 @@ html.gate-active body {
 }
 
 .gate-botanical-left {
-  bottom: -18%;
-  left: -35%;
+  bottom: -10%;
+  left: -12%;
   transform: none;
   translate: 0 0;
   rotate: -9deg;
@@ -1550,9 +1551,11 @@ html.gate-active body {
 }
 
 .gate-botanical-right {
-  --gate-plant-opacity: 0.42;
-  top: -25%;
-  right: -43%;
+  --gate-plant-opacity: 0.56;
+  top: -10%;
+  bottom: auto;
+  right: -10%;
+  width: clamp(13rem, 60vw, 30rem);
   transform: none;
   translate: 0 0;
   rotate: -11deg;
@@ -1621,13 +1624,15 @@ html.gate-active body {
   --plant-x: 34%;
   --plant-y: -15%;
   --plant-rotation: 2deg;
-  --breeze-arc: 1.7deg;
+  --breeze-arc: 2deg;
   z-index: 1;
   top: 0;
+  bottom: auto;
   right: 0;
   width: min(78vw, 32rem);
-  opacity: 0.31;
+  opacity: 0.38;
   rotate: var(--plant-rotation);
+  scale: -1 1;
   animation:
     hero-plant-back-enter 950ms 180ms cubic-bezier(0.22, 1, 0.36, 1) both,
     botanical-breeze 10.5s 1.3s ease-in-out infinite alternate;
@@ -1637,12 +1642,12 @@ html.gate-active body {
   --plant-x: -34%;
   --plant-y: 19%;
   --plant-rotation: -4deg;
-  --breeze-arc: 2deg;
+  --breeze-arc: 2.3deg;
   z-index: 2;
   bottom: 0;
   left: 0;
   width: min(74vw, 30rem);
-  opacity: 0.68;
+  opacity: 0.8;
   rotate: var(--plant-rotation);
   animation:
     hero-plant-front-enter 1s 300ms cubic-bezier(0.22, 1, 0.36, 1) both,
@@ -1728,20 +1733,23 @@ html.gate-active body {
 }
 
 .personal-botanical-back {
-  --plant-opacity: 0.34;
+  --plant-opacity: 0.4;
   --plant-x: 31%;
   --plant-y: -15%;
   --plant-rotation: 8deg;
+  --breeze-arc: 2deg;
   z-index: 0;
   top: 0;
+  bottom: auto;
   right: 0;
   width: min(74vw, 34rem);
   opacity: var(--plant-opacity);
   rotate: var(--plant-rotation);
+  scale: -1 1;
 }
 
 .personal-botanical-front {
-  --plant-opacity: 0.5;
+  --plant-opacity: 0.68;
   --plant-x: -48%;
   --plant-y: 52%;
   --plant-rotation: -7deg;
@@ -1799,15 +1807,17 @@ html.gate-active body {
 .details-section {
   padding-block: 6.5rem 3rem;
   background:
-    linear-gradient(180deg, rgba(197, 169, 127, 0.05), transparent 28%),
-    #252520;
+    radial-gradient(circle at 12% 10%, rgba(255, 255, 251, 0.94), transparent 28rem),
+    linear-gradient(180deg, #f8f4ec 0%, #f1ece2 72%, #f7f3eb 100%);
+  background-color: #f5f0e8;
+  color: var(--ink);
   overflow: visible;
 }
 
 .details-section::before {
   background:
-    radial-gradient(circle at 12% 10%, rgba(208, 177, 127, 0.13), transparent 26rem),
-    radial-gradient(circle at 93% 67%, rgba(100, 113, 79, 0.12), transparent 27rem);
+    radial-gradient(circle at 12% 10%, rgba(255, 249, 237, 0.72), transparent 26rem),
+    radial-gradient(circle at 93% 67%, rgba(152, 170, 130, 0.1), transparent 27rem);
 }
 
 .details-garden-shadow {
@@ -1826,25 +1836,28 @@ html.gate-active body {
   width: 70%;
   aspect-ratio: 0.7;
   background:
-    radial-gradient(ellipse at 34% 25%, rgba(137, 151, 110, 0.19) 0 7%, transparent 8%),
-    radial-gradient(ellipse at 58% 42%, rgba(137, 151, 110, 0.16) 0 9%, transparent 10%),
-    radial-gradient(ellipse at 31% 68%, rgba(137, 151, 110, 0.13) 0 8%, transparent 9%);
+    radial-gradient(ellipse at 34% 25%, rgba(103, 121, 82, 0.1) 0 7%, transparent 8%),
+    radial-gradient(ellipse at 58% 42%, rgba(103, 121, 82, 0.08) 0 9%, transparent 10%),
+    radial-gradient(ellipse at 31% 68%, rgba(103, 121, 82, 0.07) 0 8%, transparent 9%);
   content: "";
   filter: blur(13px);
   transform: rotate(-16deg);
 }
 
 .detail-botanical-top {
-  --plant-opacity: 0.26;
+  --plant-opacity: 0.38;
   --plant-x: 48%;
   --plant-y: -37%;
   --plant-rotation: 12deg;
+  --breeze-arc: 2deg;
   z-index: 1;
   top: 0;
+  bottom: auto;
   right: 0;
   width: min(82vw, 36rem);
   opacity: var(--plant-opacity);
   rotate: var(--plant-rotation);
+  scale: -1 1;
   -webkit-mask-image: radial-gradient(
     ellipse 115% 100% at 100% 0%,
     #000 0 68%,
@@ -1860,27 +1873,34 @@ html.gate-active body {
 }
 
 .detail-botanical-low {
-  --plant-opacity: 0.23;
+  --plant-opacity: 0.3;
   --plant-x: -46%;
   --plant-y: 12%;
   --plant-rotation: -10deg;
-  --breeze-arc: 1.8deg;
+  --breeze-arc: 2.2deg;
   z-index: 1;
   bottom: 21%;
   left: 0;
   width: min(70vw, 31rem);
   opacity: var(--plant-opacity);
   rotate: var(--plant-rotation);
-  scale: -1 1;
 }
 
 .details-section > .section-inner {
   z-index: 2;
 }
 
+.details-section .section-number-light {
+  color: rgba(128, 102, 67, 0.66);
+}
+
+.details-section .eyebrow-light {
+  color: #765f3e;
+}
+
 .details-grid {
   margin-top: 3.25rem;
-  border-top-color: rgba(213, 189, 151, 0.27);
+  border-top-color: rgba(128, 102, 67, 0.25);
 }
 
 .detail-block {
@@ -1889,12 +1909,12 @@ html.gate-active body {
   padding: 4.25rem 0;
   flex-direction: column;
   justify-content: center;
-  border-bottom-color: rgba(213, 189, 151, 0.25);
+  border-bottom-color: rgba(128, 102, 67, 0.23);
 }
 
 .detail-kicker {
   margin-bottom: 1.9rem;
-  color: #d2b587;
+  color: #765f3e;
 }
 
 .detail-block h3 {
@@ -1905,7 +1925,7 @@ html.gate-active body {
 .detail-value,
 .detail-block address {
   margin-top: 1.75rem;
-  color: #d0c7bb;
+  color: #5f5a52;
   font-size: clamp(0.96rem, 3.8vw, 1.08rem);
 }
 
@@ -1932,24 +1952,27 @@ html.gate-active body {
 }
 
 .map-botanical-back {
-  --plant-opacity: 0.28;
+  --plant-opacity: 0.36;
   --plant-x: 38%;
   --plant-y: -12%;
   --plant-rotation: 8deg;
+  --breeze-arc: 2deg;
   z-index: 0;
   top: 0;
+  bottom: auto;
   right: 0;
   width: min(69vw, 31rem);
   opacity: var(--plant-opacity);
   rotate: var(--plant-rotation);
+  scale: -1 1;
 }
 
 .map-botanical-front {
-  --plant-opacity: 0.48;
+  --plant-opacity: 0.62;
   --plant-x: -48%;
-  --plant-y: 32%;
+  --plant-y: 24%;
   --plant-rotation: -8deg;
-  --breeze-arc: 2deg;
+  --breeze-arc: 2.2deg;
   z-index: 1;
   bottom: 0;
   left: 0;
@@ -1989,11 +2012,12 @@ html.gate-active body {
   min-height: 100svh;
   padding-block: clamp(8.5rem, 24vw, 13rem) 6rem;
   align-items: center;
-  border-color: rgba(213, 189, 151, 0.21);
+  border-color: rgba(128, 102, 67, 0.26);
   background:
-    radial-gradient(circle at 50% 46%, rgba(156, 128, 84, 0.13), transparent 36%),
-    linear-gradient(158deg, #262620 0%, #1d201b 68%, #2a241e 100%);
-  color: #f7f0e5;
+    radial-gradient(circle at 50% 46%, rgba(255, 255, 251, 0.94), transparent 40%),
+    linear-gradient(158deg, #faf7f0 0%, #f0ece2 68%, #f8f4ec 100%);
+  background-color: #f5f0e8;
+  color: #272b23;
   overflow: hidden;
 }
 
@@ -2002,7 +2026,7 @@ html.gate-active body {
   left: 50%;
   width: min(100vw, 46rem);
   aspect-ratio: 1;
-  background: radial-gradient(circle, rgba(255, 235, 199, 0.14), transparent 67%);
+  background: radial-gradient(circle, rgba(255, 255, 251, 0.86), transparent 67%);
   transform: translate(-50%, -50%);
 }
 
@@ -2011,53 +2035,57 @@ html.gate-active body {
   z-index: 0;
   inset: 0;
   background:
-    radial-gradient(ellipse at 12% 20%, rgba(134, 151, 108, 0.13) 0 7%, transparent 8%),
-    radial-gradient(ellipse at 89% 74%, rgba(181, 139, 83, 0.12) 0 8%, transparent 9%);
+    radial-gradient(ellipse at 12% 20%, rgba(91, 109, 73, 0.11) 0 7%, transparent 8%),
+    radial-gradient(ellipse at 89% 74%, rgba(139, 100, 52, 0.08) 0 8%, transparent 9%);
   filter: blur(10px);
   pointer-events: none;
 }
 
 .closing-botanical-edge-left,
 .closing-botanical-edge-right {
-  --plant-opacity: 0.7;
-  --plant-x: 0%;
-  --plant-y: 0%;
-  --plant-rotation: 0deg;
-  --breeze-arc: 1.2deg;
+  --plant-opacity: 0.82;
+  --breeze-arc: 2.2deg;
   z-index: 1;
-  top: 46%;
-  left: 50%;
-  width: min(114vw, 58rem);
+  width: clamp(18rem, 74vw, 38rem);
   opacity: var(--plant-opacity);
   transform-origin: center;
-  translate: calc(-50% + var(--plant-x)) calc(-50% + var(--plant-y) + var(--parallax-y, 0px));
+  translate: var(--plant-x) calc(var(--plant-y) + var(--parallax-y, 0px));
   rotate: var(--plant-rotation);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0 80%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 0 80%, transparent 100%);
 }
 
 .closing-botanical-edge-left {
-  clip-path: polygon(0 0, 30.5% 0, 94.5% 100%, 0 100%);
+  --plant-x: -34%;
+  --plant-y: -18%;
+  --plant-rotation: -4deg;
+  top: 0;
+  bottom: auto;
+  left: 0;
+  scale: 1 1;
 }
 
 .closing-botanical-edge-right {
-  clip-path: polygon(30.5% 0, 100% 0, 100% 100%, 94.5% 100%);
+  --plant-x: 34%;
+  --plant-y: 18%;
+  --plant-rotation: 4deg;
+  right: 0;
+  bottom: 0;
+  scale: -1 1;
 }
 
 .closing-inner {
   z-index: 3;
-  text-shadow: 0 0.2rem 2rem rgba(0, 0, 0, 0.24);
+  text-shadow: 0 0.2rem 2rem rgba(247, 242, 232, 0.5);
 }
 
 .closing-inner > p {
   max-width: 31rem;
-  color: #fff7eb;
+  color: #272b23;
   font-size: clamp(2.65rem, 11.5vw, 5.4rem);
   line-height: 0.98;
 }
 
 .closing-date {
-  color: #bdb3a5;
+  color: #272b23;
 }
 
 /* JavaScript adds the enhanced state only after every item is configured. */
@@ -2160,7 +2188,7 @@ html.gate-active body {
 @keyframes hero-plant-back-enter {
   from {
     opacity: 0;
-    transform: translate3d(0, -34px, 0) scale(1.04);
+    transform: translate3d(0, 42px, 0) scale(1.04);
   }
 }
 
@@ -2223,27 +2251,19 @@ html.gate-active body {
   }
 
   .hero-botanical-back {
-    --breeze-arc: 1.1deg;
+    --breeze-arc: 2deg;
     animation:
       hero-plant-back-enter 950ms 180ms cubic-bezier(0.22, 1, 0.36, 1) both,
-      botanical-breeze 15s 1.3s ease-in-out infinite alternate;
+      botanical-breeze 10.5s 1.3s ease-in-out infinite alternate;
   }
 
   .hero-botanical-front {
     --plant-x: -42%;
     --plant-y: 29%;
-    --breeze-arc: 1.35deg;
+    --breeze-arc: 2.3deg;
     animation:
       hero-plant-front-enter 1s 300ms cubic-bezier(0.22, 1, 0.36, 1) both,
-      botanical-breeze 12.5s 1.5s ease-in-out infinite alternate;
-  }
-
-  .closing-botanical-edge-left {
-    --plant-x: -28%;
-  }
-
-  .closing-botanical-edge-right {
-    --plant-x: 28%;
+      botanical-breeze 9.5s 1.5s ease-in-out infinite alternate;
   }
 
   .closing-inner {
@@ -2256,9 +2276,9 @@ html.gate-active body {
     inset: -3.5rem -1.25rem;
     background: radial-gradient(
       ellipse at center,
-      rgba(29, 32, 27, 0.94) 0%,
-      rgba(29, 32, 27, 0.82) 46%,
-      rgba(29, 32, 27, 0.48) 65%,
+      rgba(250, 247, 240, 0.96) 0%,
+      rgba(250, 247, 240, 0.84) 46%,
+      rgba(250, 247, 240, 0.5) 65%,
       transparent 82%
     );
     content: "";
@@ -2297,8 +2317,8 @@ html.gate-active body {
   }
 
   .reveal-enhanced .reveal-botanical.reveal-pending.reveal-visible {
-    --breeze-arc: 1.25deg;
-    --breeze-duration: 13.5s;
+    --breeze-arc: 2.4deg;
+    --breeze-duration: 9.5s;
     transition:
       opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
       transform 1000ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -2360,13 +2380,13 @@ html.gate-active body {
   }
 
   .gate-botanical-left {
-    left: -14%;
-    bottom: -27%;
+    left: -8%;
+    bottom: -18%;
   }
 
   .gate-botanical-right {
-    top: -31%;
-    right: -15%;
+    top: -14%;
+    right: -8%;
   }
 
   .hero-botanical-back {
@@ -2424,7 +2444,7 @@ html.gate-active body {
 
   .map-botanical-front {
     --plant-x: -26%;
-    --plant-y: 92%;
+    --plant-y: 24%;
     width: min(34vw, 28rem);
   }
 
@@ -2434,37 +2454,17 @@ html.gate-active body {
 
   .closing-botanical-edge-left,
   .closing-botanical-edge-right {
-    top: 62%;
-    width: min(64vw, 56rem);
-  }
-}
-
-@media (min-width: 64rem) {
-  .closing-botanical-edge-left,
-  .closing-botanical-edge-right {
-    --plant-opacity: 0.7;
-    --plant-x: 0%;
-    --plant-y: 0%;
-    --plant-rotation: 0deg;
-    --breeze-arc: 1.2deg;
-    z-index: 1;
-    top: 62%;
-    width: min(64vw, 56rem);
-    opacity: var(--plant-opacity);
-    transform-origin: center;
-    translate: var(--plant-x) calc(-50% + var(--plant-y) + var(--parallax-y, 0px));
-    rotate: var(--plant-rotation);
-    -webkit-mask-image: linear-gradient(to bottom, #000 0 80%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 0 80%, transparent 100%);
+    width: min(46vw, 38rem);
   }
 
   .closing-botanical-edge-left {
-    left: 0;
+    --plant-x: -20%;
+    --plant-y: -16%;
   }
 
   .closing-botanical-edge-right {
-    left: auto;
-    right: 0;
+    --plant-x: 20%;
+    --plant-y: 16%;
   }
 }
 

@@ -409,6 +409,28 @@ test("generator creates a qizlar bazmi invitation for Zulayho alone", async ({
   await expect(page.getByTestId("invitation-copy")).toContainText(
     "sizlarni qizlar bazmiga taklif qilamiz.",
   );
+  await expect(page.locator(".closing")).toContainText(
+    "Tashrifingiz biz uchun katta quvonch bo‘ladi",
+  );
+
+  const localizedClosings = [
+    ["uz-cyrl", "Қадрли дугоналар", "Ташрифингиз биз учун катта қувонч бўлади"],
+    ["ru", "Дорогие подруги", "Ваше присутствие станет для нас большой радостью"],
+    ["en", "Dear friends", "Your presence will bring us great joy"],
+  ] as const;
+
+  for (const [language, guestName, closingMessage] of localizedClosings) {
+    const localizedUrl = await generateInvitation(
+      page,
+      "plural",
+      guestName,
+      language,
+      "qizlar-bazmi",
+    );
+    await page.goto(localizedUrl);
+    await page.getByTestId("opening-gate").getByRole("button").click();
+    await expect(page.locator(".closing")).toContainText(closingMessage);
+  }
 });
 
 test("generator creates a Russian singular invitation with Cyrillic couple names", async ({
@@ -446,7 +468,7 @@ test("generator creates a Russian singular invitation with Cyrillic couple names
   await expect(page.getByTestId("invitation-copy")).toContainText(
     russianInvitationSentence.singular,
   );
-  await expect(page.locator("body")).toContainText("Дата и время");
+  await expect(page.locator("body")).toContainText("Время");
   await expect(page.locator("body")).toContainText("Открыть место на карте");
   await expect(page.locator("body")).toContainText("Тойхона «Oq qasr»");
   await expect(page.locator("body")).toContainText(
@@ -504,7 +526,7 @@ test("generator creates an Uzbek Cyrillic invitation", async ({ page }) => {
   await expect(page.getByTestId("invitation-copy")).not.toContainText(
     "сизларни",
   );
-  await expect(page.locator("body")).toContainText("Сана ва вақт");
+  await expect(page.locator("body")).toContainText("Вақт");
   await expect(page.locator("body")).toContainText("Оқ қаср тўйхонаси");
   await expect(page.locator("body")).toContainText(
     "Қорақалпоғистон Республикаси, Беруний тумани",
@@ -528,7 +550,7 @@ test("generator creates an English invitation", async ({ page }) => {
   await expect(page.getByTestId("invitation-copy")).toContainText(
     "Dear guests",
   );
-  await expect(page.locator("body")).toContainText("Date and time");
+  await expect(page.locator("body")).toContainText("Time");
   await expect(page.locator("body")).toContainText("Open the venue on a map");
   await expect(page.locator("body")).toContainText("Oq qasr Wedding Hall");
   await expect(page.locator("body")).toContainText(
@@ -712,14 +734,12 @@ test("rejects malformed, unsafe, oversized, and obsolete-format fragments", asyn
     await expect(page.locator("body")).not.toContainText(guests.plural);
   }
 
-  const missingResponse = await page.goto("/mavjud-emas");
-  expect(missingResponse?.status()).toBe(404);
-  await expect(page.getByTestId("not-found-state")).toContainText(
-    "Taklifnoma topilmadi",
-  );
-  await expect(page.getByTestId("not-found-state")).toContainText(
-    "Havola to‘liq va to‘g‘ri ekanini tekshiring.",
-  );
+});
+
+test("missing paths have no generated 404 page", async ({ request }) => {
+  const response = await request.get("/mavjud-emas");
+  expect(response.status()).toBe(404);
+  expect(await response.body()).toHaveLength(0);
 });
 
 test("map destinations are exact safe anchors", async ({ page, baseURL }) => {
@@ -842,6 +862,50 @@ test("opening botanicals reveal without a delayed rotation snap", async ({
   }
 });
 
+test("both botanical assets load and hashed static files stay cached", async ({
+  page,
+  baseURL,
+}) => {
+  if (!baseURL) {
+    throw new Error("Playwright baseURL is required");
+  }
+
+  const botanicalRequests = new Set<string>();
+  page.on("request", (request) => {
+    const pathname = new URL(request.url()).pathname;
+    if (pathname.startsWith("/botanicals/")) {
+      botanicalRequests.add(pathname);
+    }
+  });
+
+  await page.goto(invitationUrl(baseURL, "singular"));
+
+  const expectedSources = [
+    "/botanicals/botanical-foreground.3b2f1d61.webp",
+    "/botanicals/botanical-mid.5a66fa18.webp",
+  ];
+  const gateBotanicals = page.locator(".gate-botanical");
+  await expect(gateBotanicals).toHaveCount(2);
+  expect(
+    await gateBotanicals.evaluateAll((images: HTMLImageElement[]) =>
+      images.every((image) => image.complete && image.naturalWidth === 768),
+    ),
+  ).toBe(true);
+  expect([...botanicalRequests].sort()).toEqual(expectedSources.sort());
+
+  const staticSource = await page
+    .locator('script[src^="/_next/static/"]')
+    .first()
+    .getAttribute("src");
+  expect(staticSource).not.toBeNull();
+
+  for (const source of [...expectedSources, staticSource!]) {
+    const response = await page.request.get(new URL(source, baseURL).toString());
+    expect(response.headers()["cache-control"]).toContain("max-age=31536000");
+    expect(response.headers()["cache-control"]).toContain("immutable");
+  }
+});
+
 test("one Back action leaves the invitation instead of dismissing its gate", async ({
   page,
   baseURL,
@@ -871,7 +935,7 @@ test("one Back action leaves the invitation instead of dismissing its gate", asy
   );
 });
 
-test("main botanicals keep a slow subtle breeze after settling", async ({
+test("main botanicals keep a visible gentle breeze after settling", async ({
   page,
   baseURL,
 }) => {
@@ -906,11 +970,61 @@ test("main botanicals keep a slow subtle breeze after settling", async ({
       };
     });
 
-    expect(motion.breezeDuration).toBeGreaterThanOrEqual(11);
-    expect(motion.breezeDuration).toBeLessThanOrEqual(15);
+    expect(motion.breezeDuration).toBeGreaterThanOrEqual(9);
+    expect(motion.breezeDuration).toBeLessThanOrEqual(11);
     expect(motion.breezeIterations).toBe("infinite");
-    expect(motion.arc).toBeGreaterThanOrEqual(1.05);
-    expect(motion.arc).toBeLessThanOrEqual(1.4);
+    expect(motion.arc).toBeGreaterThanOrEqual(2.2);
+    expect(motion.arc).toBeLessThanOrEqual(2.5);
+  }
+});
+
+test("botanical branches stay upright at every corner", async ({
+  page,
+  baseURL,
+}) => {
+  if (!baseURL) {
+    throw new Error("Playwright baseURL is required");
+  }
+
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(invitationUrl(baseURL, "singular"));
+
+  const uprightState = (locator: Locator) =>
+    locator.evaluateAll((elements) =>
+      elements.map((element) => {
+        const style = getComputedStyle(element);
+        const scale =
+          style.scale === "none"
+            ? [1, 1]
+            : style.scale.split(" ").map(Number);
+
+        return {
+          scaleY: scale[1] ?? scale[0],
+        };
+      }),
+    );
+
+  const gateBotanicals = page.locator(".gate-botanical");
+  await expect(gateBotanicals).toHaveCount(2);
+  const gateOrientations = await uprightState(gateBotanicals);
+
+  await page
+    .getByTestId("opening-gate")
+    .getByRole("button", { name: "Taklifnomani ochish" })
+    .click();
+  await expect(page.getByTestId("opening-gate")).toBeHidden();
+
+  const botanicals = page.locator(
+    ".hero-botanical, .section-botanical, .detail-botanical, .map-botanical, .closing-botanical",
+  );
+  const orientations = [
+    ...gateOrientations,
+    ...(await uprightState(botanicals)),
+  ];
+
+  for (const orientation of orientations) {
+    expect(orientation.scaleY).toBeGreaterThan(0);
   }
 });
 
@@ -990,7 +1104,7 @@ test("desktop map controls are opaque and stay above botanicals", async ({
   );
 });
 
-test("desktop closing botanical stays inside its dark section", async ({
+test("desktop closing botanical stays inside its section", async ({
   page,
   baseURL,
 }) => {
@@ -1031,7 +1145,7 @@ test("desktop closing botanical stays inside its dark section", async ({
     const startsInsideClosing = botanicalBox!.y >= closingBox!.y - 1;
     expect(
       startsInsideClosing || clipsAtClosingBorder,
-      "Closing botanical must start below the dark section border or be clipped there",
+      "Closing botanical must start below the section border or be clipped there",
     ).toBe(true);
   }
 });
@@ -1102,6 +1216,9 @@ test("desktop closing botanicals frame the viewport edges and leave the copy cle
       clipPaths: [left, right].map(
         (element) => getComputedStyle(element).clipPath,
       ),
+      sources: [left, right].map((element) =>
+        element.getAttribute("src"),
+      ),
       innerZIndex,
       botanicalZIndexes: [left, right].map((element) =>
         Number.parseInt(getComputedStyle(element).zIndex, 10),
@@ -1120,8 +1237,9 @@ test("desktop closing botanicals frame the viewport edges and leave the copy cle
     viewport.width * 0.66,
   );
   for (const clipPath of layout.clipPaths) {
-    expect(clipPath).not.toBe("none");
+    expect(clipPath).toBe("none");
   }
+  expect(layout.sources[0]).not.toBe(layout.sources[1]);
 
   for (const text of [layout.copy, layout.date]) {
     expect(text.left).toBeGreaterThanOrEqual(viewport.width * 0.2);
@@ -1215,17 +1333,14 @@ test("Samsung S24 closing stays proportional and feathers its final canvas edge"
   expect(closingBox!.height).toBeGreaterThanOrEqual(viewport.height * 0.98);
   expect(closingBox!.height).toBeLessThanOrEqual(viewport.height * 1.02);
   expect(closingBox!.y + closingBox!.height).toBeCloseTo(viewport.height, 0);
-  expect(botanicalStyles[0].clipPath).not.toBe("none");
-  expect(botanicalStyles[1].clipPath).not.toBe("none");
-  expect(botanicalStyles[0].clipPath).not.toBe(botanicalStyles[1].clipPath);
+  expect(botanicalStyles[0].clipPath).toBe("none");
+  expect(botanicalStyles[1].clipPath).toBe("none");
   expect(botanicalBoxes[0]!.x).toBeLessThan(
     botanicalBoxes[1]!.x - viewport.width * 0.6,
   );
   for (const botanicalStyle of botanicalStyles) {
     for (const mask of botanicalStyle.masks) {
-      expect(mask).not.toBe("none");
-      expect(mask).toContain("gradient(");
-      expect(mask).toMatch(/rgba\(0, 0, 0, 0\) 100%\)\s*$/);
+      expect(mask).toBe("none");
     }
   }
   for (const textBox of [copyBox!, dateBox!]) {
@@ -1278,6 +1393,8 @@ test("all required viewports avoid overflow and keep controls readable", async (
   if (!baseURL) {
     throw new Error("Playwright baseURL is required");
   }
+
+  await page.emulateMedia({ reducedMotion: "reduce" });
 
   const viewports = [
     { width: 320, height: 568 },
@@ -1791,6 +1908,11 @@ test("public wedding content works without JavaScript", async ({
       "href",
       wedding.yandexMapsUrl,
     );
+    expect(
+      await page.locator(".hero-botanical").first().evaluate(
+        (image: HTMLImageElement) => image.complete && image.naturalWidth === 768,
+      ),
+    ).toBe(true);
 
     for (const locator of [
       page.getByTestId("hero"),

@@ -14,6 +14,7 @@ const mimeTypes = {
   ".svg": "image/svg+xml",
   ".txt": "text/plain; charset=utf-8",
   ".woff2": "font/woff2",
+  ".webp": "image/webp",
 };
 const safeHeaders = {
   "Referrer-Policy": "no-referrer",
@@ -49,11 +50,13 @@ createServer((request, response) => {
 
   if (!filePath.startsWith(`${root}${sep}`) || !existsSync(filePath) || !statSync(filePath).isFile()) {
     const notFoundPath = resolve(root, "404.html");
+    const hasNotFoundPage = request.method === "GET" && existsSync(notFoundPath);
     response.writeHead(404, {
       ...safeHeaders,
+      ...(hasNotFoundPage ? {} : { "Content-Length": "0" }),
       "Content-Type": "text/html; charset=utf-8",
     });
-    if (request.method === "GET" && existsSync(notFoundPath)) {
+    if (hasNotFoundPage) {
       createReadStream(notFoundPath).pipe(response);
     } else {
       response.end();
@@ -63,6 +66,10 @@ createServer((request, response) => {
 
   response.writeHead(200, {
     ...safeHeaders,
+    ...(relativePath.startsWith("/botanicals/") ||
+    relativePath.startsWith("/_next/static/")
+      ? { "Cache-Control": "public, max-age=31536000, immutable" }
+      : {}),
     "Content-Type": mimeTypes[extname(filePath)] ?? "application/octet-stream",
   });
   if (request.method === "GET") {

@@ -226,13 +226,13 @@ export function InvitationExperience() {
           <BotanicalOrnament
             className="closing-botanical closing-botanical-edge-left"
             depth={0.35}
-            variant="embrace"
+            variant="foreground"
             reveal
           />
           <BotanicalOrnament
             className="closing-botanical closing-botanical-edge-right"
             depth={0.35}
-            variant="embrace"
+            variant="mid"
             reveal
           />
           <div

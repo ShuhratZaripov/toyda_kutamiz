@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-type BotanicalVariant = "foreground" | "mid" | "embrace";
+type BotanicalVariant = "foreground" | "mid";
 
 type BotanicalOrnamentProps = {
   className?: string;
@@ -11,9 +11,8 @@ type BotanicalOrnamentProps = {
 };
 
 const sources: Record<BotanicalVariant, string> = {
-  foreground: "/botanicals/botanical-foreground.webp",
-  mid: "/botanicals/botanical-mid.webp",
-  embrace: "/botanicals/botanical-embrace.webp",
+  foreground: "/botanicals/botanical-foreground.3b2f1d61.webp",
+  mid: "/botanicals/botanical-mid.5a66fa18.webp",
 };
 
 export function BotanicalOrnament({
@@ -27,8 +26,8 @@ export function BotanicalOrnament({
     <Image
       className={className}
       src={sources[variant]}
-      width="1024"
-      height="1536"
+      width="768"
+      height="1152"
       alt=""
       aria-hidden="true"
       decoding="async"
