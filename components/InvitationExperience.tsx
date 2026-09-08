@@ -164,41 +164,53 @@ export function InvitationExperience() {
             <p className="eyebrow eyebrow-light">{content.detailsLabel}</p>
             <h2 id="details-heading" className="visually-hidden">{content.detailsTitle}</h2>
             <div className={`details-grid${invitationEvent === "both" ? " details-grid-both" : ""}`}>
-              {invitationSchedule.map((event, index) => (
-                <article
-                  key={event.event}
-                  className="detail-block"
-                  data-testid={`event-detail-${event.event}`}
-                  data-reveal
-                  data-reveal-delay={index > 0 ? "1" : undefined}
-                  data-reveal-milestone={index === 0 ? "details" : undefined}
-                >
-                  <p className="detail-kicker">
-                    {invitationEvent === "both" ? event.label : content.dateTimeLabel}
-                  </p>
-                  <h3>
-                    <time dateTime={event.dateTime}>{event.displayDate}</time>
-                  </h3>
-                  <p className="detail-value">{content.startTimeLabel} {wedding.startTime}</p>
-                </article>
-              ))}
-              <article className="detail-block venue-block" data-reveal data-reveal-delay="1">
-                {invitationSchedule.length > 1 ? (
-                  invitationSchedule.map((event) => (
-                    <div className="venue-entry" key={event.event}>
-                      <p className="detail-kicker">{event.label}</p>
+              {invitationSchedule.length > 1 ? (
+                invitationSchedule.map((event, index) => (
+                  <article
+                    key={event.event}
+                    className="detail-block"
+                    data-testid={`event-detail-${event.event}`}
+                    data-reveal
+                    data-reveal-delay={index > 0 ? "1" : undefined}
+                    data-reveal-milestone={index === 0 ? "details" : undefined}
+                  >
+                    <p className="detail-kicker">{event.label}</p>
+                    <h3>
+                      <time dateTime={event.dateTime}>{event.displayDate}</time>
+                    </h3>
+                    <p className="detail-value">{content.startTimeLabel} {wedding.startTime}</p>
+                    <div className="detail-venue">
+                      <p className="detail-kicker">{content.venueLabel}</p>
                       <h3>{event.venueName}</h3>
                       <address>{event.fullAddress}</address>
                     </div>
-                  ))
-                ) : (
-                  <>
+                  </article>
+                ))
+              ) : (
+                <>
+                  {invitationSchedule.map((event, index) => (
+                    <article
+                      key={event.event}
+                      className="detail-block"
+                      data-testid={`event-detail-${event.event}`}
+                      data-reveal
+                      data-reveal-delay={index > 0 ? "1" : undefined}
+                      data-reveal-milestone={index === 0 ? "details" : undefined}
+                    >
+                      <p className="detail-kicker">{content.dateTimeLabel}</p>
+                      <h3>
+                        <time dateTime={event.dateTime}>{event.displayDate}</time>
+                      </h3>
+                      <p className="detail-value">{content.startTimeLabel} {wedding.startTime}</p>
+                    </article>
+                  ))}
+                  <article className="detail-block venue-block" data-reveal data-reveal-delay="1">
                     <p className="detail-kicker">{content.venueLabel}</p>
                     <h3>{content.venueName}</h3>
                     <address>{content.fullAddress}</address>
-                  </>
-                )}
-              </article>
+                  </article>
+                </>
+              )}
             </div>
           </div>
         </section>
