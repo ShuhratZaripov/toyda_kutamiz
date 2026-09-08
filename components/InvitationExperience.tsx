@@ -183,9 +183,21 @@ export function InvitationExperience() {
                 </article>
               ))}
               <article className="detail-block venue-block" data-reveal data-reveal-delay="1">
-                <p className="detail-kicker">{content.venueLabel}</p>
-                <h3>{content.venueName}</h3>
-                <address>{content.fullAddress}</address>
+                {invitationSchedule.length > 1 ? (
+                  invitationSchedule.map((event) => (
+                    <div className="venue-entry" key={event.event}>
+                      <p className="detail-kicker">{event.label}</p>
+                      <h3>{event.venueName}</h3>
+                      <address>{event.fullAddress}</address>
+                    </div>
+                  ))
+                ) : (
+                  <>
+                    <p className="detail-kicker">{content.venueLabel}</p>
+                    <h3>{content.venueName}</h3>
+                    <address>{content.fullAddress}</address>
+                  </>
+                )}
               </article>
             </div>
           </div>
@@ -209,35 +221,37 @@ export function InvitationExperience() {
             <p className="eyebrow">{content.mapLabel}</p>
             <h2 id="map-heading">{content.mapTitle}</h2>
             {invitationSchedule.length > 1 ? (
-              invitationSchedule.map((event) => (
-                <div className="map-group" key={event.event}>
-                  <p className="eyebrow map-group-label">{event.label}</p>
-                  <nav
-                    className="map-actions"
-                    data-testid={`map-actions-${event.event}`}
-                    aria-label={content.mapAriaLabel}
-                  >
-                    <a
-                      data-testid={`map-google-${event.event}`}
-                      href={event.googleMapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
+              <div className="map-groups">
+                {invitationSchedule.map((event) => (
+                  <div className="map-group" key={event.event}>
+                    <p className="eyebrow map-group-label">{event.label}</p>
+                    <nav
+                      className="map-actions"
+                      data-testid={`map-actions-${event.event}`}
+                      aria-label={content.mapAriaLabel}
                     >
-                      <span>Google Maps</span>
-                      <b aria-hidden="true">↗</b>
-                    </a>
-                    <a
-                      data-testid={`map-yandex-${event.event}`}
-                      href={event.yandexMapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <span>Yandex Maps</span>
-                      <b aria-hidden="true">↗</b>
-                    </a>
-                  </nav>
-                </div>
-              ))
+                      <a
+                        data-testid={`map-google-${event.event}`}
+                        href={event.googleMapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <span>Google Maps</span>
+                        <b aria-hidden="true">↗</b>
+                      </a>
+                      <a
+                        data-testid={`map-yandex-${event.event}`}
+                        href={event.yandexMapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <span>Yandex Maps</span>
+                        <b aria-hidden="true">↗</b>
+                      </a>
+                    </nav>
+                  </div>
+                ))}
+              </div>
             ) : (
               <nav className="map-actions" data-testid="map-actions" aria-label={content.mapAriaLabel}>
                 <a

@@ -72,7 +72,8 @@ type InvitationEventContent = Pick<
   | "invitationSentences"
   | "detailsTitle"
   | "closingMessage"
->;
+> &
+  Partial<Pick<WeddingLocaleContent, "venueName" | "fullAddress">>;
 
 export type ResolvedInvitationContent = WeddingLocaleContent & {
   singleName: boolean;
@@ -83,6 +84,8 @@ export type InvitationScheduleItem = {
   label: string;
   displayDate: string;
   dateTime: string;
+  venueName: string;
+  fullAddress: string;
   googleMapsUrl: string;
   yandexMapsUrl: string;
 };
@@ -282,6 +285,7 @@ const qizlarBazmi = {
     browserTitle: "Muhayyo | Qizlar bazmi",
     displayDate: "28-sentabr, 2026-yil",
     detailsDisplayDate: "2026-yil 28-sentabr",
+    venueName: "Anor to'yxonasi",
     openingMessage:
       "Biz uchun alohida ahamiyatga ega bo‘lgan bu nafis oqshom siz bilan yanada go‘zal bo‘ladi.",
     openingLabel: "Qizlar bazmi",
@@ -517,6 +521,8 @@ export function getInvitationSchedule(
       label: content.heroLabel,
       displayDate: content.detailsDisplayDate,
       dateTime: invitationDateTimes[event],
+      venueName: content.venueName,
+      fullAddress: content.fullAddress,
       googleMapsUrl: invitationMapUrls[event].googleMapsUrl,
       yandexMapsUrl: invitationMapUrls[event].yandexMapsUrl,
     };
