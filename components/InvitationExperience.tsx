@@ -208,26 +208,58 @@ export function InvitationExperience() {
           <div className="section-inner map-inner" data-reveal>
             <p className="eyebrow">{content.mapLabel}</p>
             <h2 id="map-heading">{content.mapTitle}</h2>
-            <nav className="map-actions" data-testid="map-actions" aria-label={content.mapAriaLabel}>
-              <a
-                data-testid="map-google"
-                href={wedding.googleMapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span>Google Maps</span>
-                <b aria-hidden="true">↗</b>
-              </a>
-              <a
-                data-testid="map-yandex"
-                href={wedding.yandexMapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span>Yandex Maps</span>
-                <b aria-hidden="true">↗</b>
-              </a>
-            </nav>
+            {invitationSchedule.length > 1 ? (
+              invitationSchedule.map((event) => (
+                <div className="map-group" key={event.event}>
+                  <p className="eyebrow map-group-label">{event.label}</p>
+                  <nav
+                    className="map-actions"
+                    data-testid={`map-actions-${event.event}`}
+                    aria-label={content.mapAriaLabel}
+                  >
+                    <a
+                      data-testid={`map-google-${event.event}`}
+                      href={event.googleMapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span>Google Maps</span>
+                      <b aria-hidden="true">↗</b>
+                    </a>
+                    <a
+                      data-testid={`map-yandex-${event.event}`}
+                      href={event.yandexMapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span>Yandex Maps</span>
+                      <b aria-hidden="true">↗</b>
+                    </a>
+                  </nav>
+                </div>
+              ))
+            ) : (
+              <nav className="map-actions" data-testid="map-actions" aria-label={content.mapAriaLabel}>
+                <a
+                  data-testid="map-google"
+                  href={invitationSchedule[0].googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>Google Maps</span>
+                  <b aria-hidden="true">↗</b>
+                </a>
+                <a
+                  data-testid="map-yandex"
+                  href={invitationSchedule[0].yandexMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>Yandex Maps</span>
+                  <b aria-hidden="true">↗</b>
+                </a>
+              </nav>
+            )}
           </div>
         </section>
 

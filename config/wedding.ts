@@ -52,6 +52,8 @@ export type WeddingConfig = {
   fullAddress: string;
   googleMapsUrl: string;
   yandexMapsUrl: string;
+  qizlarBazmiGoogleMapsUrl: string;
+  qizlarBazmiYandexMapsUrl: string;
   openingMessage: string;
   brokenLinkContact: string | null;
   usesSampleData: boolean;
@@ -81,6 +83,8 @@ export type InvitationScheduleItem = {
   label: string;
   displayDate: string;
   dateTime: string;
+  googleMapsUrl: string;
+  yandexMapsUrl: string;
 };
 
 const uz = {
@@ -450,6 +454,8 @@ export const wedding = {
   googleMapsUrl: "https://maps.app.goo.gl/fEKBykn7NUmz6gob7",
   yandexMapsUrl:
     "https://yandex.uz/maps/-/CTdCMO-Y",
+  qizlarBazmiGoogleMapsUrl: "https://maps.app.goo.gl/uHQ1XQHdu4niftD46",
+  qizlarBazmiYandexMapsUrl: "https://yandex.uz/maps/-/CTd1NP-H",
   openingMessage: uz.openingMessage,
   brokenLinkContact: null,
   usesSampleData: false,
@@ -461,6 +467,20 @@ export const weddingDateTime = `${wedding.date}T${wedding.startTime}:00+05:00`;
 export const invitationDateTimes: Record<Exclude<InvitationEvent, "both">, string> = {
   wedding: weddingDateTime,
   "qizlar-bazmi": `${wedding.qizlarBazmiDate}T${wedding.startTime}:00+05:00`,
+};
+
+export const invitationMapUrls: Record<
+  Exclude<InvitationEvent, "both">,
+  { googleMapsUrl: string; yandexMapsUrl: string }
+> = {
+  wedding: {
+    googleMapsUrl: wedding.googleMapsUrl,
+    yandexMapsUrl: wedding.yandexMapsUrl,
+  },
+  "qizlar-bazmi": {
+    googleMapsUrl: wedding.qizlarBazmiGoogleMapsUrl,
+    yandexMapsUrl: wedding.qizlarBazmiYandexMapsUrl,
+  },
 };
 
 export function getInvitationContent(
@@ -497,6 +517,8 @@ export function getInvitationSchedule(
       label: content.heroLabel,
       displayDate: content.detailsDisplayDate,
       dateTime: invitationDateTimes[event],
+      googleMapsUrl: invitationMapUrls[event].googleMapsUrl,
+      yandexMapsUrl: invitationMapUrls[event].yandexMapsUrl,
     };
   });
 }
