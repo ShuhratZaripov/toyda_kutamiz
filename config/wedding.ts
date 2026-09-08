@@ -447,8 +447,7 @@ export const wedding = {
   timeZone: "Asia/Tashkent",
   venueName: uz.venueName,
   fullAddress: uz.fullAddress,
-  googleMapsUrl:
-    "https://www.google.com/maps/place/Oq+Qasr/@41.6692168,60.7734755,17z/data=!3m1!4b1!4m6!3m5!1s0x41dfd50031175a7f:0x13cbd0bddb172134!8m2!3d41.6692168!4d60.7734755!16s%2Fg%2F11ywmzkpkf?entry=ttu&g_ep=EgoyMDI2MDgyMy4wIKXMDSoASAFQAw%3D%3D",
+  googleMapsUrl: "https://maps.app.goo.gl/fEKBykn7NUmz6gob7",
   yandexMapsUrl:
     "https://yandex.uz/maps/-/CTdCMO-Y",
   openingMessage: uz.openingMessage,
