@@ -512,7 +512,7 @@ test("generator creates one invitation for both celebrations", async ({ page }) 
   );
   await expect(page.locator(".details-grid .detail-block")).toHaveCount(3);
   await expect(page.locator(".venue-block")).toContainText(
-    "Oq qasr to'yxonasi",
+    "Orzu to'yxonasi",
   );
   const combinedLayout = await page.locator(".details-grid").evaluate((grid) => ({
     columns: getComputedStyle(grid).gridTemplateColumns.split(" ").length,
@@ -621,7 +621,7 @@ test("generator creates a Russian singular invitation with Cyrillic couple names
   );
   await expect(page.locator("body")).toContainText("Время");
   await expect(page.locator("body")).toContainText("Открыть место на карте");
-  await expect(page.locator("body")).toContainText("Тойхона «Oq qasr»");
+  await expect(page.locator("body")).toContainText("Тойхона «Orzu»");
   await expect(page.locator("body")).toContainText(
     "Республика Каракалпакстан, Берунийский район",
   );
@@ -703,7 +703,7 @@ test("generator creates an English invitation", async ({ page }) => {
   );
   await expect(page.locator("body")).toContainText("Time");
   await expect(page.locator("body")).toContainText("Open the venue on a map");
-  await expect(page.locator("body")).toContainText("Oq qasr Wedding Hall");
+  await expect(page.locator("body")).toContainText("Orzu Wedding Hall");
   await expect(page.locator("body")).toContainText(
     "Republic of Karakalpakstan, Beruniy District",
   );

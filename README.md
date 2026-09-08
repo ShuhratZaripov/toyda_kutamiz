@@ -6,8 +6,8 @@ It is intentionally implementation-focused, model-agnostic, and dense enough to 
 
 ## Current product
 
-The invitation is for Usmon and Zulayho.
-The configured venue is Oq qasr wedding hall in Beruniy District, Republic of Karakalpakstan.
+The invitation is for Shuxrat and Muhayyo.
+The configured venue is Orzu wedding hall in Beruniy District, Republic of Karakalpakstan.
 All configured events currently start at 18:00 in the `Asia/Tashkent` time zone.
 
 The product supports four languages:
@@ -19,8 +19,8 @@ The product supports four languages:
 
 The product supports three invitation types:
 
-- `wedding` is the September 14, 2026 wedding invitation and presents Usmon and Zulayho.
-- `qizlar-bazmi` is the September 13, 2026 qizlar bazmi invitation and presents Zulayho alone.
+- `wedding` is the September 29, 2026 wedding invitation and presents Shuxrat and Muhayyo.
+- `qizlar-bazmi` is the September 28, 2026 qizlar bazmi invitation and presents Muhayyo alone.
 - `both` invites the recipient to both celebrations and presents two dated event cards plus the shared venue.
 
 Every invitation can use a singular or plural form of address.

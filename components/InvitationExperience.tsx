@@ -275,7 +275,7 @@ function PersonalizedGreeting({
       <p className="invitation-copy" data-testid="invitation-copy" aria-live="polite">
         <span className="honorific">{content.honorifics[addressForm]}</span>
         <strong className="recipient-line">
-          <span data-testid="recipient-name">{displayName}</span>,
+          <span data-testid="recipient-name">{displayName}</span>
         </strong>
         <span className="invitation-sentence">{content.invitationSentences[addressForm]}</span>
       </p>

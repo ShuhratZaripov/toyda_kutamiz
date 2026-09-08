@@ -106,7 +106,7 @@ export function InviteGenerator() {
                   checked={invitationEvent === "wedding"}
                   onChange={() => updateEvent("wedding")}
                 />
-                <span>Nikoh to‘yi - 14-sentabr</span>
+                <span>Nikoh to‘yi - 29-sentabr</span>
               </label>
               <label>
                 <input
@@ -117,7 +117,7 @@ export function InviteGenerator() {
                   checked={invitationEvent === "qizlar-bazmi"}
                   onChange={() => updateEvent("qizlar-bazmi")}
                 />
-                <span>Qizlar bazmi - 13-sentabr</span>
+                <span>Qizlar bazmi - 28-sentabr</span>
               </label>
               <label>
                 <input
@@ -128,7 +128,7 @@ export function InviteGenerator() {
                   checked={invitationEvent === "both"}
                   onChange={() => updateEvent("both")}
                 />
-                <span>Ikkala tadbir - 13 va 14-sentabr</span>
+                <span>Ikkala tadbir - 28 va 29-sentabr</span>
               </label>
             </div>
           </fieldset>
@@ -300,7 +300,7 @@ export function InviteGenerator() {
             {token ? (
               <p>
                 <span>{content.honorifics[addressForm]}</span>
-                <strong>{trimmedName},</strong>
+                <strong>{trimmedName}</strong>
                 <span>{content.invitationSentences[addressForm]}</span>
               </p>
             ) : (

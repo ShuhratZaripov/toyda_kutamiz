@@ -86,15 +86,15 @@ export type InvitationScheduleItem = {
 const uz = {
   htmlLang: "uz-Latn",
   couple: {
-    firstName: "Usmon",
-    secondName: "Zulayho",
+    firstName: "Shuxrat",
+    secondName: "Muhayyo",
     connector: "va",
-    displayName: "Usmon va Zulayho",
+    displayName: "Shuxrat va Muhayyo",
   },
-  browserTitle: "Usmon va Zulayho | Nikoh to‘yi",
-  displayDate: "14-sentabr, 2026-yil",
-  detailsDisplayDate: "2026-yil 14-sentabr",
-  venueName: "Oq qasr to'yxonasi",
+  browserTitle: "Shuxrat va Muhayyo | Nikoh to‘yi",
+  displayDate: "29-Sentabr, 2026-yil",
+  detailsDisplayDate: "2026-yil 29-sentabr",
+  venueName: "Orzu to'yxonasi",
   fullAddress:
     "Qoraqalpogʻiston Respublikasi, Beruniy tumani",
   openingMessage:
@@ -186,7 +186,7 @@ const ru = {
   browserTitle: "Усмон и Зулайхо | Свадьба",
   displayDate: "14 сентября 2026 года",
   detailsDisplayDate: "14 сентября 2026 года",
-  venueName: "Тойхона «Oq qasr»",
+  venueName: "Тойхона «Orzu»",
   fullAddress:
     "Республика Каракалпакстан, Берунийский район",
   openingMessage:
@@ -232,7 +232,7 @@ const en = {
   browserTitle: "Usmon and Zulayho | Wedding",
   displayDate: "September 14, 2026",
   detailsDisplayDate: "September 14, 2026",
-  venueName: "Oq qasr Wedding Hall",
+  venueName: "Orzu Wedding Hall",
   fullAddress:
     "Republic of Karakalpakstan, Beruniy District",
   openingMessage:
@@ -270,14 +270,14 @@ const en = {
 const qizlarBazmi = {
   uz: {
     couple: {
-      firstName: "Zulayho",
+      firstName: "Muhayyo",
       secondName: "",
       connector: "",
-      displayName: "Zulayho",
+      displayName: "Muhayyo",
     },
-    browserTitle: "Zulayho | Qizlar bazmi",
-    displayDate: "13-sentabr, 2026-yil",
-    detailsDisplayDate: "2026-yil 13-sentabr",
+    browserTitle: "Muhayyo | Qizlar bazmi",
+    displayDate: "28-sentabr, 2026-yil",
+    detailsDisplayDate: "2026-yil 28-sentabr",
     openingMessage:
       "Biz uchun alohida ahamiyatga ega bo‘lgan bu nafis oqshom siz bilan yanada go‘zal bo‘ladi.",
     openingLabel: "Qizlar bazmi",
@@ -365,9 +365,9 @@ const qizlarBazmi = {
 const bothEvents = {
   uz: {
     couple: uz.couple,
-    browserTitle: "Usmon va Zulayho | Qizlar bazmi va nikoh to‘yi",
-    displayDate: "13 va 14-sentabr, 2026-yil",
-    detailsDisplayDate: "2026-yil 13 va 14-sentabr",
+    browserTitle: "Shuxrat va Muhayyo | Qizlar bazmi va nikoh to‘yi",
+    displayDate: "28 va 29-sentabr, 2026-yil",
+    detailsDisplayDate: "2026-yil 28 va 29-sentabr",
     openingMessage:
       "Biz uchun aziz bo‘lgan ikki quvonchli kunimiz siz bilan yanada go‘zal bo‘ladi.",
     openingLabel: "Qizlar bazmi va nikoh to‘yimiz",
@@ -440,8 +440,8 @@ const bothEvents = {
 export const wedding = {
   couple: uz.couple,
   browserTitle: uz.browserTitle,
-  date: "2026-09-14",
-  qizlarBazmiDate: "2026-09-13",
+  date: "2026-09-29",
+  qizlarBazmiDate: "2026-09-28",
   displayDate: uz.displayDate,
   startTime: "18:00",
   timeZone: "Asia/Tashkent",
@@ -450,7 +450,7 @@ export const wedding = {
   googleMapsUrl:
     "https://www.google.com/maps/place/Oq+Qasr/@41.6692168,60.7734755,17z/data=!3m1!4b1!4m6!3m5!1s0x41dfd50031175a7f:0x13cbd0bddb172134!8m2!3d41.6692168!4d60.7734755!16s%2Fg%2F11ywmzkpkf?entry=ttu&g_ep=EgoyMDI2MDgyMy4wIKXMDSoASAFQAw%3D%3D",
   yandexMapsUrl:
-    "https://yandex.uz/maps/org/oq_qasr_toyxonasi/18398642973/?ll=60.774465%2C41.668580&z=17.7",
+    "https://yandex.uz/maps/-/CTdCMO-Y",
   openingMessage: uz.openingMessage,
   brokenLinkContact: null,
   usesSampleData: false,
