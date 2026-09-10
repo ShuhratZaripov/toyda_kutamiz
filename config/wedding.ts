@@ -276,8 +276,13 @@ const en = {
 
 const qizlarBazmi = {
   uz: {
-    couple: uz.couple,
-    browserTitle: "Shuxrat va Muhayyo | Qizlar bazmi",
+    couple: {
+      firstName: "Muhayyo",
+      secondName: "",
+      connector: "",
+      displayName: "Muhayyo",
+    },
+    browserTitle: "Muhayyo | Qizlar bazmi",
     displayDate: "28-sentabr, 2026-yil",
     detailsDisplayDate: "2026-yil 28-sentabr",
     venueName: "Anor to'yxonasi",
@@ -489,7 +494,7 @@ export function getInvitationContent(
   const content = wedding.localized[language];
 
   if (invitationEvent === "qizlar-bazmi") {
-    return { ...content, ...qizlarBazmi[language], singleName: false };
+    return { ...content, ...qizlarBazmi[language], singleName: true };
   }
 
   if (invitationEvent === "both") {
