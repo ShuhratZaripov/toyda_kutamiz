@@ -185,14 +185,14 @@ const uzCyrl = {
 const ru = {
   htmlLang: "ru",
   couple: {
-    firstName: "Усмон",
-    secondName: "Зулайхо",
+    firstName: "Шухрат",
+    secondName: "Мухайё",
     connector: "и",
-    displayName: "Усмон и Зулайхо",
+    displayName: "Шухрат и Мухайё",
   },
-  browserTitle: "Усмон и Зулайхо | Свадьба",
-  displayDate: "14 сентября 2026 года",
-  detailsDisplayDate: "14 сентября 2026 года",
+  browserTitle: "Шухрат и Мухайё | Свадьба",
+  displayDate: "29 сентября 2026 года",
+  detailsDisplayDate: "29 сентября 2026 года",
   venueName: "Тойхона «Orzu»",
   fullAddress:
     "Республика Каракалпакстан, Берунийский район",
@@ -231,14 +231,14 @@ const ru = {
 const en = {
   htmlLang: "en",
   couple: {
-    firstName: "Usmon",
-    secondName: "Zulayho",
+    firstName: "Shuxrat",
+    secondName: "Muhayyo",
     connector: "and",
-    displayName: "Usmon and Zulayho",
+    displayName: "Shuxrat and Muhayyo",
   },
-  browserTitle: "Usmon and Zulayho | Wedding",
-  displayDate: "September 14, 2026",
-  detailsDisplayDate: "September 14, 2026",
+  browserTitle: "Shuxrat and Muhayyo | Wedding",
+  displayDate: "September 29, 2026",
+  detailsDisplayDate: "September 29, 2026",
   venueName: "Orzu Wedding Hall",
   fullAddress:
     "Republic of Karakalpakstan, Beruniy District",
@@ -324,14 +324,15 @@ const qizlarBazmi = {
   },
   ru: {
     couple: {
-      firstName: "Зулайхо",
+      firstName: "Мухайё",
       secondName: "",
       connector: "",
-      displayName: "Зулайхо",
+      displayName: "Мухайё",
     },
-    browserTitle: "Зулайхо | Кызлар базми",
-    displayDate: "13 сентября 2026 года",
-    detailsDisplayDate: "13 сентября 2026 года",
+    browserTitle: "Мухайё | Кызлар базми",
+    displayDate: "28 сентября 2026 года",
+    detailsDisplayDate: "28 сентября 2026 года",
+    venueName: "Тойхона «Anor»",
     openingMessage:
       "Этот особенный и дорогой для нас вечер станет ещё прекраснее вместе с вами.",
     openingLabel: "Кызлар базми",
@@ -347,14 +348,15 @@ const qizlarBazmi = {
   },
   en: {
     couple: {
-      firstName: "Zulayho",
+      firstName: "Muhayyo",
       secondName: "",
       connector: "",
-      displayName: "Zulayho",
+      displayName: "Muhayyo",
     },
-    browserTitle: "Zulayho | Qizlar bazmi",
-    displayDate: "September 13, 2026",
-    detailsDisplayDate: "September 13, 2026",
+    browserTitle: "Muhayyo | Qizlar bazmi",
+    displayDate: "September 28, 2026",
+    detailsDisplayDate: "September 28, 2026",
+    venueName: "Anor Wedding Hall",
     openingMessage:
       "This special evening means so much to us, and it will be even more beautiful with you.",
     openingLabel: "Qizlar bazmi",
@@ -409,9 +411,9 @@ const bothEvents = {
   },
   ru: {
     couple: ru.couple,
-    browserTitle: "Усмон и Зулайхо | Кызлар базми и свадьба",
-    displayDate: "13 и 14 сентября 2026 года",
-    detailsDisplayDate: "13 и 14 сентября 2026 года",
+    browserTitle: "Шухрат и Мухайё | Кызлар базми и свадьба",
+    displayDate: "28 и 29 сентября 2026 года",
+    detailsDisplayDate: "28 и 29 сентября 2026 года",
     openingMessage:
       "Два этих дорогих и радостных для нас дня станут ещё прекраснее вместе с вами.",
     openingLabel: "Кызлар базми и наша свадьба",
@@ -427,9 +429,9 @@ const bothEvents = {
   },
   en: {
     couple: en.couple,
-    browserTitle: "Usmon and Zulayho | Qizlar bazmi and wedding",
-    displayDate: "September 13 and 14, 2026",
-    detailsDisplayDate: "September 13 and 14, 2026",
+    browserTitle: "Shuxrat and Muhayyo | Qizlar bazmi and wedding",
+    displayDate: "September 28 and 29, 2026",
+    detailsDisplayDate: "September 28 and 29, 2026",
     openingMessage:
       "These two joyful days mean so much to us, and they will be even more beautiful with you.",
     openingLabel: "Qizlar bazmi and our wedding",
